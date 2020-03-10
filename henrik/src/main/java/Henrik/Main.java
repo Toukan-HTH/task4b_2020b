@@ -229,6 +229,7 @@ public class Main extends Application{
 
     public void updateObservableList(ArrayList<BonusMember> newList){
         this.setup=FXCollections.observableArrayList(newList);
+        tableview.setItems(setup);
         tableview.refresh();
     }
 }
