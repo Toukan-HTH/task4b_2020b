@@ -9,6 +9,10 @@ class MemberArchive{
         members = new ArrayList<BonusMember>();
     }
 
+    public void removeMember(int index){
+        members.remove(index);
+    }
+
     public boolean registerPoints(int membernr, int poeng){
         boolean result = true;
         for(int i =0;i<members.size();i++){
