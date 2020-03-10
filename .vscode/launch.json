@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "Henrik.Main",
+            "projectName": "henrik"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Start",
+            "request": "launch",
+            "mainClass": "Henrik.Start",
+            "projectName": "henrik"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MemberArchive",
+            "request": "launch",
+            "mainClass": "Henrik.MemberArchive",
+            "projectName": "henrik"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Test",
             "vmArgs": "--module-path D:\\VSC\\javafx\\javafx-sdk-11.0.2\\lib --add-modules javafx.controls,javafx.fxml",
             "request": "launch",
