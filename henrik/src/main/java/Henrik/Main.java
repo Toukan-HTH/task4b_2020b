@@ -33,10 +33,10 @@ public class Main extends Application{
     public void start(Stage primaryStage){
         window = primaryStage;
         ObservableList<Personals> setup = FXCollections.observableArrayList();
-        Personals p = new Personals("test", "test", "test", "test");
-        Personals q = new Personals("test", "test", "test", "test");
-        Personals r = new Personals("test", "test", "test", "test");
-        Personals s = new Personals("test", "test", "test", "test");
+        Personals p = new Personals("test", "test2", "test", "test");
+        Personals q = new Personals("test1", "test3", "test", "test");
+        Personals r = new Personals("test2", "test5", "test", "test");
+        Personals s = new Personals("test3", "test6", "test", "test");
         setup.add(p);
         setup.add(q);
         setup.add(r);
