@@ -61,6 +61,10 @@ class MemberArchive{
         return result;
     }
 
+    public ArrayList<BonusMember> getArray(){
+        return members;
+    }
+
 
 
 

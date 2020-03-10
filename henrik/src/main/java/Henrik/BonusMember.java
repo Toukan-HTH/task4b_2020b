@@ -6,13 +6,15 @@ class BonusMember{
     private final LocalDate enrolledDate;
     private final Personals personals;
     private int point = 0;
-    public BonusMember(int memberNo, Personals personals, LocalDate enrolledDate){
+    private String memberstatus;
+    public BonusMember(int memberNo, Personals personals, LocalDate enrolledDate, String memberStatus){
         if(personals==null||enrolledDate==null){
             throw new IllegalArgumentException("personals cannot be null");
         }
         this.memberNo = memberNo;
         this.enrolledDate=enrolledDate;
         this.personals=personals;
+        this.memberstatus=memberStatus;
     }
 
     public int getMemberNo(){
@@ -33,6 +35,10 @@ class BonusMember{
 
     public Personals getPersonals(){
         return personals;
+    }
+
+    public String getMemberStatus(){
+        return memberstatus;
     }
     /**
      * Throws exception if somehow the input LocalDate was of a null value.

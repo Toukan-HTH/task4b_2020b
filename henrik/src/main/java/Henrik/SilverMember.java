@@ -2,7 +2,7 @@ package Henrik;
 import java.time.*;
 class SilverMember extends BonusMember{
     public SilverMember(int memberNo, Personals personals, LocalDate enrolledDate, int poeng){
-        super(memberNo, personals, enrolledDate);
+        super(memberNo, personals, enrolledDate,"SilverMember");
         super.registerPoints(poeng);
     }
 

@@ -39,6 +39,10 @@ class Personals{
         return ePostadr;
     }
 
+    public String getPassword(){
+        return password;
+    }
+
     public boolean okPassword(String password){
         return this.password.equalsIgnoreCase(password);
     }
