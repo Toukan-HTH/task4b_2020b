@@ -33,7 +33,7 @@ import javafx.event.ActionEvent;
 
 public class Main extends Application{
     Stage window;
-    TableView tableview = new TableView<Personals>();
+    TableView tableview = new TableView<BonusMember>();
     MemberArchive memberArchive = new MemberArchive();
     ObservableList<BonusMember> setup = FXCollections.observableArrayList();
 
