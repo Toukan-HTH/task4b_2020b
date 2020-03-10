@@ -25,7 +25,8 @@ import javafx.util.Callback;
 import javafx.scene.layout.BorderPane;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
-
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 
 
 
@@ -75,15 +76,33 @@ public class Main extends Application{
 
         BorderPane root = new BorderPane();
         VBox vbox = new VBox();
+
+        //BUTTONS
+        vbox.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;");
         Button button = new Button("Add New Member");
+        button.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;");
         button.setOnAction(new ButtonHandler());
         Button button2 = new Button("Delete Selected Member");
+        button2.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;");
         button2.setOnAction(new ButtonHandler());
         Button button3 = new Button("Upgrade Valid Members");
+        button3.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;");
         button3.setOnAction(new ButtonHandler());
         Button button4 = new Button("Show Details");
+        button4.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;");
         button4.setOnAction(new ButtonHandler());
-        vbox.getChildren().addAll(tableview,button,button2,button3,button4);
+        tableview.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;-fx-accent:#282a2d;");
+        Rectangle rectangle = new Rectangle(20,50,175,205);
+        rectangle.setFill(Color.WHITE);
+        rectangle.setStroke(Color.DARKGRAY);
+        //BUTTONS
+        vbox.getChildren().addAll(tableview,rectangle,button,button2,button3,button4);
+        vbox.setSpacing(25);
+        vbox.setMargin(button, new Insets(-255,10,0,20));
+        vbox.setMargin(button2, new Insets(0,0,0,20));
+        vbox.setMargin(button3, new Insets(0,0,0,20));
+        vbox.setMargin(button4, new Insets(0,0,10,20));
+        vbox.setMargin(rectangle, new Insets(0,0,40,10));
         Scene scene = new Scene(vbox);
         window.setScene(scene);
         window.show();
