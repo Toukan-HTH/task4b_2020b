@@ -69,6 +69,10 @@ class MemberArchive{
         return members;
     }
 
+    public void setArray(ArrayList<BonusMember> newmembers){
+        this.members=newmembers;
+    }
+
 
 
 

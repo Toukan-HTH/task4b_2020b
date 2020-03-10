@@ -56,6 +56,18 @@ public class Main extends Application{
         setup.add(new SilverMember(99993, r, LocalDate.now(), 200));
         setup.add(new SilverMember(99993, r, LocalDate.now(), 200));
         setup.add(new SilverMember(99993, r, LocalDate.now(), 200));
+        ArrayList<BonusMember> temp = new ArrayList<BonusMember>();
+        temp.add(new SilverMember(99995, p, LocalDate.now(), 200));
+        temp.add(new SilverMember(99994, q, LocalDate.now(), 200));
+        temp.add(new SilverMember(99993, r, LocalDate.now(), 200));
+        temp.add(new SilverMember(99993, r, LocalDate.now(), 200));
+        temp.add(new SilverMember(99993, r, LocalDate.now(), 200));
+        temp.add(new SilverMember(99993, r, LocalDate.now(), 200));
+        temp.add(new SilverMember(99993, r, LocalDate.now(), 200));
+        temp.add(new SilverMember(99993, r, LocalDate.now(), 200));
+        temp.add(new SilverMember(99993, r, LocalDate.now(), 200));
+        temp.add(new SilverMember(99993, r, LocalDate.now(), 200));
+        memberArchive.setArray(temp);
         //TESTDATA
 
         tableview.setItems(setup);
@@ -213,5 +225,9 @@ public class Main extends Application{
 
         }
 
+    }
+
+    public void updateObservableList(ArrayList<BonusMember> newList){
+        this.setup=FXCollections.observableArrayList(newList);
     }
 }
