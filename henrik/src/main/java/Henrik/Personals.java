@@ -1,4 +1,5 @@
 package Henrik;
+import javafx.beans.property.*;
 class Personals{
     private final String surname;
     private final String firstname;
