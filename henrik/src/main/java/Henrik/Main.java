@@ -27,6 +27,7 @@ import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import javafx.scene.control.Label;
 
 
 
@@ -81,16 +82,12 @@ public class Main extends Application{
         vbox.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;");
         Button button = new Button("Add New Member");
         button.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;");
-        button.setOnAction(new ButtonHandler());
         Button button2 = new Button("Delete Selected Member");
         button2.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;");
-        button2.setOnAction(new ButtonHandler());
         Button button3 = new Button("Upgrade Valid Members");
         button3.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;");
-        button3.setOnAction(new ButtonHandler());
         Button button4 = new Button("Show Details");
         button4.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;");
-        button4.setOnAction(new ButtonHandler());
         tableview.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;-fx-accent:#282a2d;");
         Rectangle rectangle = new Rectangle(20,50,175,205);
         rectangle.setFill(Color.WHITE);
@@ -106,7 +103,62 @@ public class Main extends Application{
         Scene scene = new Scene(vbox);
         window.setScene(scene);
         window.show();
+
+
+        //Button eventhandling
+        button.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                System.out.println("button 1");
+                TextField firstnameField = new TextField();
+                Label firstNameLabel = new Label("First Name");
+                TextField lastnameField = new TextField();
+                Label lastnameLabel = new Label("Last Name");
+                TextField emailField = new TextField();
+                Label emailLabel = new Label("Email");
+                TextField passwordField = new TextField();
+                Label passwordLabel = new Label("Password");
+                VBox addmemberVbox = new VBox();
+                Button buttonAccept = new Button("Accept");
+                buttonAccept.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;");
+                Button cancelButton = new Button("Cancel");
+                cancelButton.setStyle("-fx-border-color:#282a2d;-fx-focus-color:#282a2d;");
+                addmemberVbox.getChildren().addAll(firstNameLabel,firstnameField,lastnameLabel,lastnameField,emailLabel,emailField,passwordLabel,passwordField,buttonAccept,cancelButton);
+                addmemberVbox.setMargin(cancelButton, new Insets(-27, 0, 5, 100));
+                Stage newWindow = new Stage();
+                Scene newScene = new Scene(addmemberVbox);
+                newWindow.setScene(newScene);
+                newWindow.show();
+                cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event){
+                        newWindow.close();
+                    }
+                });
+            }
+        });
+        button2.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                System.out.println("button 2");
+            }
+        });
+        button3.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                System.out.println("button 3");
+            }
+        });
+        button4.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                System.out.println("button 4");
+            }
+        });
     }
+
+
+
     private TableColumn<BonusMember, String> getFirstNameColumn(){
         TableColumn<BonusMember, String> nameColumn = new TableColumn<>("First Name");
         nameColumn.setMinWidth(200);
@@ -232,11 +284,12 @@ public class Main extends Application{
 
     }
 
-
+    /*
     public class ButtonHandler implements EventHandler<ActionEvent>{
 
         @Override
         public void handle(ActionEvent event) {
+            if(event.getSource()==Start.button)
             //System.out.println(tableview.getSelectionModel().getFocusedIndex());
             //System.out.println(tableview.getSelectionModel().getSelectedItem());
             //setup.remove(tableview.getSelectionModel().getFocusedIndex());
@@ -244,7 +297,7 @@ public class Main extends Application{
 
         }
 
-    }
+    }*/
 
     public void updateObservableList(ArrayList<BonusMember> newList){
         this.setup=FXCollections.observableArrayList(newList);
