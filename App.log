@@ -10,3 +10,17 @@ Mar 11, 2020 8:54:35 PM Henrik.Log logNewInfo
 INFO: new
 Mar 11, 2020 8:59:47 PM Henrik.Log logNewInfo
 INFO: New Member Created
+Mar 11, 2020 9:03:42 PM Henrik.Log logNewWarning
+WARNING: Deleted Member, ID nr : 99993
+Mar 11, 2020 9:03:50 PM Henrik.Log logNewWarning
+WARNING: Deleted Member, ID nr : 99994
+Mar 11, 2020 9:03:59 PM Henrik.Log logNewInfo
+INFO: Upgrading Members
+Mar 11, 2020 9:05:25 PM Henrik.Log logNewInfo
+INFO: Showing Details for Member nr : 99993
+Mar 11, 2020 9:05:34 PM Henrik.Log logNewInfo
+INFO: Upgrading Members
+Mar 11, 2020 9:05:35 PM Henrik.Log logNewWarning
+WARNING: Deleted Member, ID nr : 99993
+Mar 11, 2020 9:05:40 PM Henrik.Log logNewInfo
+INFO: New Member Created

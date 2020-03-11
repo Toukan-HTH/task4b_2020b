@@ -174,6 +174,7 @@ public class Main extends Application{
             @Override
             public void handle(ActionEvent event){
                 int index = tableview.getSelectionModel().getFocusedIndex();
+                logger.logNewWarning("Deleted Member," + " ID nr : " + memberArchive.getArray().get(index).getMemberNo());
                 setup.remove(index);
                 tableview.refresh();;
                 memberArchive.removeMember(index);
@@ -183,6 +184,7 @@ public class Main extends Application{
             @Override
             public void handle(ActionEvent event){
                 memberArchive.checkMembers();
+                logger.logNewInfo("Upgrading Members");
                 updateObservableList(memberArchive.getArray());
                 tableview.refresh();
             }
@@ -191,6 +193,7 @@ public class Main extends Application{
             @Override
             public void handle(ActionEvent event){
                 int index = tableview.getSelectionModel().getFocusedIndex();
+                logger.logNewInfo("Showing Details for Member nr : " + memberArchive.getArray().get(index).getMemberNo());
                 Alert detailsAlert = new Alert(AlertType.INFORMATION);
                 detailsAlert.setTitle("Details");
                 TextArea textarea = new TextArea("First Name: " + memberArchive.getArray().get(index).getPersonals().getFirstname());
