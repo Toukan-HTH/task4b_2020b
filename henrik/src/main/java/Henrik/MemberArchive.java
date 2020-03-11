@@ -1,12 +1,19 @@
 package Henrik;
 import java.time.*;
 import java.util.*;
+import java.util.logging.*;
 class MemberArchive{
+    Log logger;
     ArrayList<BonusMember> members;
     Random r = new Random();
 
     public MemberArchive() {
         members = new ArrayList<BonusMember>();
+        try{
+            logger = new Log("App.log");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void removeMember(int index){
@@ -30,7 +37,13 @@ class MemberArchive{
 
     public int newMember(Personals personalstuff, LocalDate enrollmentDate) {
         int membernr = findAvailableNo();
-        members.add(new BasicMember(membernr, personalstuff, enrollmentDate));
+        try{
+            members.add(new BasicMember(membernr, personalstuff, enrollmentDate));
+        }catch(IllegalArgumentException e){
+            logger.logNewWarning("New member not added. members cannot have empty personal inputs");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return membernr;
     }
 
@@ -80,20 +93,26 @@ class MemberArchive{
 
     public void checkMembers(){
         for(int i = 0; i<members.size();i++){
-            if(members.get(i) instanceof BasicMember){
-                if(members.get(i).findQualificationPoints(LocalDate.now())>=25000 && members.get(i).findQualificationPoints(LocalDate.now())<=74999){
-                    members.set(i, new SilverMember(members.get(i).getMemberNo(), members.get(i).getPersonals(), members.get(i).getEnrolledDate(), members.get(i).getPoints()));
+            try{
+                if(members.get(i) instanceof BasicMember){
+                    if(members.get(i).findQualificationPoints(LocalDate.now())>=25000 && members.get(i).findQualificationPoints(LocalDate.now())<=74999){
+                        members.set(i, new SilverMember(members.get(i).getMemberNo(), members.get(i).getPersonals(), members.get(i).getEnrolledDate(), members.get(i).getPoints()));
+                    }
+        
+                    if(members.get(i).findQualificationPoints(LocalDate.now())>=75000){
+                        members.set(i, new GoldMember(members.get(i).getMemberNo(), members.get(i).getPersonals(), members.get(i).getEnrolledDate(), members.get(i).getPoints()));
+                    }
                 }
     
-                if(members.get(i).findQualificationPoints(LocalDate.now())>=75000){
-                    members.set(i, new GoldMember(members.get(i).getMemberNo(), members.get(i).getPersonals(), members.get(i).getEnrolledDate(), members.get(i).getPoints()));
+                if(members.get(i) instanceof SilverMember){
+                    if(members.get(i).findQualificationPoints(LocalDate.now())>=75000){
+                        members.set(i, new GoldMember(members.get(i).getMemberNo(), members.get(i).getPersonals(), members.get(i).getEnrolledDate(), members.get(i).getPoints()));
+                    }
                 }
-            }
-
-            if(members.get(i) instanceof SilverMember){
-                if(members.get(i).findQualificationPoints(LocalDate.now())>=75000){
-                    members.set(i, new GoldMember(members.get(i).getMemberNo(), members.get(i).getPersonals(), members.get(i).getEnrolledDate(), members.get(i).getPoints()));
-                }
+            }catch(IllegalArgumentException e){
+                logger.logNewWarning("The input LocalDate was of a null value");
+            }catch(Exception e){
+                e.printStackTrace();
             }
         }
     }

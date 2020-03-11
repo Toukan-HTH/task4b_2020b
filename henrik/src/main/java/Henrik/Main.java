@@ -153,11 +153,17 @@ public class Main extends Application{
                             alert.setContentText("None of the fields can be empty or a null value");
                             alert.showAndWait();
                         }else{
-                            memberArchive.newMember(new Personals(lastnameField.getText(), firstnameField.getText(),emailField.getText(), passwordField.getText()), LocalDate.now());
-                            logger.logNewInfo("New Member Created");
-                            newWindow.close();
-                            updateObservableList(memberArchive.getArray());
-                            tableview.refresh();
+                            try{
+                                memberArchive.newMember(new Personals(lastnameField.getText(), firstnameField.getText(),emailField.getText(), passwordField.getText()), LocalDate.now());
+                                logger.logNewInfo("New Member Created");
+                                newWindow.close();
+                                updateObservableList(memberArchive.getArray());
+                                tableview.refresh();
+                            }catch(IllegalArgumentException e){
+                                logger.logNewWarning("The input values somehow was empty or a null value");
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
                         }
                     }
                 });
