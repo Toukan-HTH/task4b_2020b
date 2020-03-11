@@ -32,6 +32,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert;
+import java.util.logging.*;
+import java.io.*;
+import java.io.File;
 
 
 
@@ -42,10 +45,17 @@ public class Main extends Application{
     TableView tableview = new TableView<BonusMember>();
     MemberArchive memberArchive = new MemberArchive();
     ObservableList<BonusMember> setup = FXCollections.observableArrayList();
+    Log logger;
+
 
 
     @Override
     public void start(Stage primaryStage) throws InterruptedException {
+        try{
+            this.logger = new Log("App.log");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         window = primaryStage;
         //TESTDATA
         Personals p = new Personals("test", "test2", "test", "test");
@@ -113,7 +123,6 @@ public class Main extends Application{
         button.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
-                System.out.println("button 1");
                 TextField firstnameField = new TextField();
                 Label firstNameLabel = new Label("First Name");
                 TextField lastnameField = new TextField();
@@ -145,6 +154,7 @@ public class Main extends Application{
                             alert.showAndWait();
                         }else{
                             memberArchive.newMember(new Personals(lastnameField.getText(), firstnameField.getText(),emailField.getText(), passwordField.getText()), LocalDate.now());
+                            logger.logNewInfo("New Member Created");
                             newWindow.close();
                             updateObservableList(memberArchive.getArray());
                             tableview.refresh();
@@ -180,7 +190,6 @@ public class Main extends Application{
         button4.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
-                System.out.println("button 4");
                 int index = tableview.getSelectionModel().getFocusedIndex();
                 Alert detailsAlert = new Alert(AlertType.INFORMATION);
                 detailsAlert.setTitle("Details");

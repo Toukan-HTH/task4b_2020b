@@ -1,3 +1,4 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    //"java.util.logging.config.file":"D:\\VSC\\Git Repo\\School\\task4b_2020b\\henrik",
 }
