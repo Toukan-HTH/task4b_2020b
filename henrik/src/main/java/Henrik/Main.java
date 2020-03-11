@@ -13,7 +13,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,11 +25,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
 
 
 
@@ -48,7 +52,7 @@ public class Main extends Application{
         Personals q = new Personals("test1", "test3", "test", "test");
         Personals r = new Personals("test2", "test5", "test", "test");
         Personals s = new Personals("test3", "test6", "test", "test");
-        setup.add(new SilverMember(99995, p, LocalDate.now(), 200));
+        setup.add(new SilverMember(99995, p, LocalDate.of(2020, 02, 11), 900000));
         setup.add(new SilverMember(99994, q, LocalDate.now(), 200));
         setup.add(new SilverMember(99993, r, LocalDate.now(), 200));
         setup.add(new SilverMember(99993, r, LocalDate.now(), 200));
@@ -59,7 +63,7 @@ public class Main extends Application{
         setup.add(new SilverMember(99993, r, LocalDate.now(), 200));
         setup.add(new SilverMember(99993, r, LocalDate.now(), 200));
         ArrayList<BonusMember> temp = new ArrayList<BonusMember>();
-        temp.add(new SilverMember(99995, p, LocalDate.now(), 200));
+        temp.add(new SilverMember(99995, p, LocalDate.of(2020, 02, 11), 900000));
         temp.add(new SilverMember(99994, q, LocalDate.now(), 200));
         temp.add(new SilverMember(99993, r, LocalDate.now(), 200));
         temp.add(new SilverMember(99993, r, LocalDate.now(), 200));
@@ -129,6 +133,25 @@ public class Main extends Application{
                 Scene newScene = new Scene(addmemberVbox);
                 newWindow.setScene(newScene);
                 newWindow.show();
+
+                buttonAccept.setOnAction(new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event){
+                        if(firstnameField.getText().equals("")||firstnameField.getText().equals(null)||lastnameField.getText().equals("")||lastnameField.getText().equals(null)||emailField.getText().equals("")||emailField.getText().equals(null)||passwordField.getText().equals("")||passwordField.getText().equals(null)){
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("Error Dialog");
+                            alert.setHeaderText(null);
+                            alert.setContentText("None of the fields can be empty or a null value");
+                            alert.showAndWait();
+                        }else{
+                            memberArchive.newMember(new Personals(lastnameField.getText(), firstnameField.getText(),emailField.getText(), passwordField.getText()), LocalDate.now());
+                            newWindow.close();
+                            updateObservableList(memberArchive.getArray());
+                            tableview.refresh();
+                        }
+                    }
+                });
+
                 cancelButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event){
@@ -140,19 +163,46 @@ public class Main extends Application{
         button2.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
-                System.out.println("button 2");
+                int index = tableview.getSelectionModel().getFocusedIndex();
+                setup.remove(index);
+                tableview.refresh();;
+                memberArchive.removeMember(index);
             }
         });
         button3.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
-                System.out.println("button 3");
+                memberArchive.checkMembers();
+                updateObservableList(memberArchive.getArray());
+                tableview.refresh();
             }
         });
         button4.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
                 System.out.println("button 4");
+                int index = tableview.getSelectionModel().getFocusedIndex();
+                Alert detailsAlert = new Alert(AlertType.INFORMATION);
+                detailsAlert.setTitle("Details");
+                TextArea textarea = new TextArea("First Name: " + memberArchive.getArray().get(index).getPersonals().getFirstname());
+                textarea.appendText("\n");
+                textarea.appendText("Last Name: " + memberArchive.getArray().get(index).getPersonals().getSurname());
+                textarea.appendText("\n");
+                textarea.appendText("Email: " + memberArchive.getArray().get(index).getPersonals().getEPostadr());
+                textarea.appendText("\n");
+                textarea.appendText("Password: " + memberArchive.getArray().get(index).getPersonals().getPassword());
+                textarea.appendText("\n");
+                textarea.appendText("Rank: " + memberArchive.getArray().get(index).getMemberStatus());
+                textarea.appendText("\n");
+                textarea.appendText("Points: " + memberArchive.getArray().get(index).getPoints());
+                textarea.appendText("\n");
+                textarea.appendText("Member ID: " + memberArchive.getArray().get(index).getMemberNo());
+                textarea.appendText("\n");
+                textarea.appendText("Enrollment Date: " + memberArchive.getArray().get(index).getEnrolledDate());
+                GridPane content = new GridPane();
+                content.add(textarea, 0, 0);
+                detailsAlert.getDialogPane().setContent(content);
+                detailsAlert.showAndWait();
             }
         });
     }
@@ -245,7 +295,7 @@ public class Main extends Application{
 
 
     private TableColumn<BonusMember, Integer> getMemberPointsColumn(){
-        TableColumn<BonusMember, Integer> memberPointsColumn = new TableColumn<>("Member ID");
+        TableColumn<BonusMember, Integer> memberPointsColumn = new TableColumn<>("Points");
         memberPointsColumn.setMinWidth(200);
         memberPointsColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<BonusMember,Integer>,ObservableValue<Integer>>(){
         
