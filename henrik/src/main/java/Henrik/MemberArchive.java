@@ -80,22 +80,18 @@ class MemberArchive{
 
     public void checkMembers(){
         for(int i = 0; i<members.size();i++){
-            System.out.println("Through member nr " + i);
             if(members.get(i) instanceof BasicMember){
                 if(members.get(i).findQualificationPoints(LocalDate.now())>=25000 && members.get(i).findQualificationPoints(LocalDate.now())<=74999){
-                    System.out.println("Upgrading basicmember nr " + i + " to Silver");
                     members.set(i, new SilverMember(members.get(i).getMemberNo(), members.get(i).getPersonals(), members.get(i).getEnrolledDate(), members.get(i).getPoints()));
                 }
     
                 if(members.get(i).findQualificationPoints(LocalDate.now())>=75000){
-                    System.out.println("Upgrading basicmember nr " + i + " to Gold");
                     members.set(i, new GoldMember(members.get(i).getMemberNo(), members.get(i).getPersonals(), members.get(i).getEnrolledDate(), members.get(i).getPoints()));
                 }
             }
 
             if(members.get(i) instanceof SilverMember){
                 if(members.get(i).findQualificationPoints(LocalDate.now())>=75000){
-                    System.out.println("Upgrading silvermember nr " + i + " to Gold");
                     members.set(i, new GoldMember(members.get(i).getMemberNo(), members.get(i).getPersonals(), members.get(i).getEnrolledDate(), members.get(i).getPoints()));
                 }
             }
